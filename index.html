@@ -159,14 +159,15 @@
         addMessageUser(userMessage);
         if (userMessage.toLowerCase() === 'sí' || userMessage.toLowerCase() === 'si') {
             respuestasAfirmativas++;
-            if (respuestasAfirmativas >= 6) {
+            if (respuestasAfirmativas >= 6 && preguntaIndex >= 7) {
                 redirectToFinalScreen();
                 return; // Detener la ejecución
             }
         } else if (userMessage.toLowerCase() === 'no') {
-            respuestasAfirmativas = 0; // Reiniciar el contador de respuestas afirmativas
-            redirectToFinal2();
-            return; // Detener la ejecución
+            if (preguntaIndex >= 7) {
+                redirectToFinal2();
+                return; // Detener la ejecución
+            }
         }
         if (!saludoRespondido) {
             // Si el saludo no ha sido respondido, responder al saludo
