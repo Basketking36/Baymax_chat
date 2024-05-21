@@ -159,12 +159,15 @@
         addMessageUser(userMessage);
         if (userMessage.toLowerCase() === 'sí' || userMessage.toLowerCase() === 'si') {
             respuestasAfirmativas++;
-            if (respuestasAfirmativas >= 6 && preguntaIndex >= 7) {
+        } else if (userMessage.toLowerCase() === 'no') {
+            respuestasNegativas++;
+        }
+        // Verificar si el usuario ha respondido al menos 7 preguntas
+        if (preguntaIndex >= 7) {
+            if (respuestasAfirmativas >= 6) {
                 redirectToFinalScreen();
                 return; // Detener la ejecución
-            }
-        } else if (userMessage.toLowerCase() === 'no') {
-            if (preguntaIndex >= 7) {
+            } else if (respuestasNegativas >= 7) {
                 redirectToFinal2();
                 return; // Detener la ejecución
             }
