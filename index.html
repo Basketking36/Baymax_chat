@@ -153,29 +153,30 @@
             window.location.href = 'final_2.html';
         }
         
-        sendMessageButton.addEventListener('click', function() {
-            const userMessage = userMessageInput.value.trim();
-            if (userMessage !== '') {
-                addMessageUser(userMessage);
-                if (userMessage.toLowerCase() === 'sí' || userMessage.toLowerCase() === 'si') {
-                    respuestasAfirmativas++;
-                    if (respuestasAfirmativas >= 6) {
-                        redirectToFinalScreen();
-                        return; // Detener la ejecución
-                    }
-                } else if (userMessage.toLowerCase() === 'no') {
-                    redirectToFinal2();
-                    return; // Detener la ejecución
-                }
-                if (!saludoRespondido) {
-                    // Si el saludo no ha sido respondido, responder al saludo
-                    responderSaludo();
-                } else {
-                    // Si ya se respondió al saludo, mostrar la siguiente pregunta
-                    setTimeout(mostrarSiguientePregunta, 500);
-                }
+       sendMessageButton.addEventListener('click', function() {
+    const userMessage = userMessageInput.value.trim();
+    if (userMessage !== '') {
+        addMessageUser(userMessage);
+        if (userMessage.toLowerCase() === 'sí' || userMessage.toLowerCase() === 'si') {
+            respuestasAfirmativas++;
+            if (respuestasAfirmativas >= 6) {
+                redirectToFinalScreen();
+                return; // Detener la ejecución
             }
-        });
+        } else if (userMessage.toLowerCase() === 'no') {
+            respuestasAfirmativas = 0; // Reiniciar el contador de respuestas afirmativas
+            redirectToFinal2();
+            return; // Detener la ejecución
+        }
+        if (!saludoRespondido) {
+            // Si el saludo no ha sido respondido, responder al saludo
+            responderSaludo();
+        } else {
+            // Si ya se respondió al saludo, mostrar la siguiente pregunta
+            setTimeout(mostrarSiguientePregunta, 500);
+        }
+    }
+});
 
         // Detectar si el usuario saluda a Bymax
         userMessageInput.addEventListener('keypress', function(event) {
